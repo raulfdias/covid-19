@@ -1,5 +1,5 @@
 <p align="center">
-	<img src="../assets/icon.png" width="150px" style="margin: 100 0;" />
+	<img src="../assets/icon.png" width="150px" style="margin: 100px 0;" />
 </p>
 
 # 😷 Product Name
