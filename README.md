@@ -62,6 +62,8 @@ Confira a página [CONTRIBUTING](.github/CONTRIBUTING-PT-BR.md) para ver os melh
 Lançado em 2020.
 Este projeto está sob a [Licença MIT](./LICENSE.md).
 
+Logo COVID-19 por <a href="https://pt.vecteezy.com/arte-vetorial/952558-fundo-pandemia-coronavirus" target="_blank">Vecteezy</a>
+
 ---
 
 <p align="center">

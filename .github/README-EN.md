@@ -62,6 +62,8 @@ Check out the [CONTRIBUTING](./CONTRIBUTING.md) page to see the best places to f
 Released in 2020.
 This project is under the [MIT license](../LICENSE.md).
 
+COVID-19 logo by <a href="https://www.vecteezy.com/vector-art/952558-coronavirus-pandemic-background" target="_blank">Vecteezy</a>
+
 ---
 
 <p align="center">
