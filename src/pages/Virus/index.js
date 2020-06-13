@@ -5,7 +5,7 @@ import styles from './styles';
 
 import { useNavigation } from "@react-navigation/native";
 
-const Detail = () => {
+const Virus = () => {
 
 	const navigation = useNavigation();	
 
@@ -23,4 +23,4 @@ const Detail = () => {
 	); 
 };
 
-export default Detail;
+export default Virus;

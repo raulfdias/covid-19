@@ -5,7 +5,7 @@ import styles from './styles';
 
 import { useNavigation } from "@react-navigation/native";
 
-const Home = () => {
+const World = () => {
 
 	const navigation = useNavigation();	
 
@@ -23,4 +23,4 @@ const Home = () => {
 	); 
 };
 
-export default Home;
+export default World;

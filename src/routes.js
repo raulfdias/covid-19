@@ -6,8 +6,8 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 
-import Home from './pages/Home';
-import Detail from './pages/Detail';
+import World from './pages/World';
+import Virus from './pages/Virus';
 
 const Tab = createBottomTabNavigator();
 
@@ -33,8 +33,8 @@ const Routes = () => {
 				  inactiveTintColor: 'gray',
 				}}
       >
-        <Tab.Screen name="World" component={Home} />
-        <Tab.Screen name="Virus" component={Detail} />
+        <Tab.Screen name="World" component={World} />
+        <Tab.Screen name="Virus" component={Virus} />
       </Tab.Navigator>
     </NavigationContainer>
 	);
