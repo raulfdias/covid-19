@@ -9,10 +9,44 @@ const Statistics = () => {
 
 	const [ countryTotal, setCountryTotal ] = useState({Confirmed: 0, Deaths: 0, Recovered: 0, Active: 0});
 
+	useEffect(() => {
+		searchCountryTotal();
+	}, []);
+
 	const searchCountryTotal = (country = 'brazil') => {
 		fetch(`https://api.covid19api.com/country/${country}?from=${getYesterday()}T00:00:00Z&to=${getToday()}T00:00:00Z`)
 			.then(res => res.json())
 			.then((res) => setCountryTotal(res[0]))
+	};
+
+	const searchCountryToday = (country = 'brazil') => {
+		fetch(`https://api.covid19api.com/country/${country}?from=${getDayBeforeYesterday()}T00:00:00Z&to=${getToday()}T00:00:00Z`)
+			.then(res => res.json())
+			.then(res => 
+				setCountryTotal(
+					{
+						Confirmed: res[1].Confirmed - res[0].Confirmed,
+						Deaths: res[1].Deaths - res[0].Deaths,
+						Recovered: res[1].Recovered - res[0].Recovered,
+						Active: res[1].Active - res[0].Active,
+					}
+				)
+			);
+	};
+
+	const searchCountryYesterday = (country = 'brazil') => {
+		fetch(`https://api.covid19api.com/country/${country}?from=${getTwoDaysBeforeYesterday()}T00:00:00Z&to=${getYesterday()}T00:00:00Z`)
+			.then(res => res.json())
+			.then(res => 
+				setCountryTotal(
+					{
+						Confirmed: res[1].Confirmed - res[0].Confirmed,
+						Deaths: res[1].Deaths - res[0].Deaths,
+						Recovered: res[1].Recovered - res[0].Recovered,
+						Active: res[1].Active - res[0].Active,
+					}
+				)
+			);
 	};
 
 	const formatNumber = number => number.toLocaleString().replace(',', '.'); 
@@ -29,7 +63,17 @@ const Statistics = () => {
 		return yesterday;
 	};
 
-	searchCountryTotal();
+	const getDayBeforeYesterday = () => {
+		const date = new Date();
+		const dayBeforeYesterday = date.getFullYear() +'-'+ ('0' + (date.getMonth() + 1)) +'-'+ (date.getDate() - 2);
+		return dayBeforeYesterday;
+	};
+
+	const getTwoDaysBeforeYesterday = () => {
+		const date = new Date();
+		const twoDaysBeforeYesterday = date.getFullYear() +'-'+ ('0' + (date.getMonth() + 1)) +'-'+ (date.getDate() - 3);
+		return twoDaysBeforeYesterday;
+	};
 
 	return(
 		<ScrollView vertical style={ styles.container } >
@@ -58,13 +102,13 @@ const Statistics = () => {
 
 				<View style={ styles.days } >
 					<TouchableOpacity>
-						<Text style={ styles.day } >Total</Text>
+						<Text style={ styles.day } onPress={ () => searchCountryTotal() } >Total</Text>
 					</TouchableOpacity>
 					<TouchableOpacity>
-						<Text style={[ styles.day, { color: '#aaa' } ]} >Hoje</Text>
+						<Text style={[ styles.day, { color: '#aaa' } ]} onPress={ () => searchCountryToday() } >Hoje</Text>
 					</TouchableOpacity>
 					<TouchableOpacity>
-						<Text style={[ styles.day, { color: '#aaa' } ]}>Ontem</Text>
+						<Text style={[ styles.day, { color: '#aaa' } ]} onPress={ () => searchCountryYesterday() } >Ontem</Text>
 					</TouchableOpacity>
 				</View>
 

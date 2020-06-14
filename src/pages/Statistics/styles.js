@@ -56,6 +56,7 @@ const styles = StyleSheet.create({
 		fontSize: 16,
 	},
 	squares: {
+		width: '100%',
 		marginTop: 25,
 		marginBottom: 35,
 		alignItems: 'center',
