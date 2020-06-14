@@ -1,6 +1,7 @@
 import 'react-native-gesture-handler';
 
 import * as React from 'react';
+import { StyleSheet } from 'react-native';
 
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
@@ -25,13 +26,13 @@ const Routes = () => {
 				      iconName = 'chart-bar';
 				    }
 
-				    return <MaterialCommunityIcons name={iconName} size={size} color={color} />;
+				    return <MaterialCommunityIcons name={iconName} size={29} color={color} />;
 	  			},
 				})}
 				tabBarOptions={{
 				  activeTintColor: '#473f97',
 				  inactiveTintColor: 'gray',
-				  showLabel: false
+				  showLabel: false,
 				}}
       >
         <Tab.Screen name="Home" component={Home} />

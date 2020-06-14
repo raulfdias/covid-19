@@ -15,6 +15,16 @@
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
+    "androidStatusBar": {
+      "barStyle": "light-content",
+      "backgroundColor": "#0000000",
+      "translucent": true,
+      "hidden": true
+    },
+    "androidNavigationBar": {
+      "barStyle": "light-content",
+      "visible": "sticky-immersive"
+    },
     "updates": {
       "fallbackToCacheTimeout": 0
     },
