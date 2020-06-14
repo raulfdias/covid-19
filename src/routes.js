@@ -31,6 +31,7 @@ const Routes = () => {
 				tabBarOptions={{
 				  activeTintColor: '#473f97',
 				  inactiveTintColor: 'gray',
+				  showLabel: false
 				}}
       >
         <Tab.Screen name="Home" component={Home} />
