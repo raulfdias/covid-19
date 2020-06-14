@@ -51,9 +51,14 @@ const styles = StyleSheet.create({
 	day: {
 		marginLeft: 15,
 		marginRight: 15,
-		color: '#fefefe',
 		fontWeight: 'bold',
 		fontSize: 16,
+	},
+	ative: {
+		color: '#fefefe',		
+	},
+	inative: {
+		color: '#aaa',		
 	},
 	squares: {
 		width: '100%',

@@ -8,6 +8,15 @@ import styles from './styles';
 const Statistics = () => {
 
 	const [ countryTotal, setCountryTotal ] = useState({Confirmed: 0, Deaths: 0, Recovered: 0, Active: 0});
+	const [ totalMenu, setTotalMenu ] = useState(true);
+	const [ todayMenu, setTodayMenu ] = useState(false);
+	const [ yesterdayMenu, setYesterdayMenu ] = useState(false);
+
+	const inativeAllMenus = () => { 
+		setTotalMenu(false);
+		setTodayMenu(false);
+		setYesterdayMenu(false);
+	};
 
 	useEffect(() => {
 		searchCountryTotal();
@@ -102,13 +111,25 @@ const Statistics = () => {
 
 				<View style={ styles.days } >
 					<TouchableOpacity>
-						<Text style={ styles.day } onPress={ () => searchCountryTotal() } >Total</Text>
+						<Text style={[ styles.day, totalMenu ? styles.ative : styles.inative ]} 
+							onPress={ () => { searchCountryTotal(); inativeAllMenus(); setTotalMenu(true); }}
+							>
+							Total
+						</Text>
 					</TouchableOpacity>
 					<TouchableOpacity>
-						<Text style={[ styles.day, { color: '#aaa' } ]} onPress={ () => searchCountryToday() } >Hoje</Text>
+						<Text style={[ styles.day, todayMenu ? styles.ative : styles.inative ]} 
+							onPress={ () => { searchCountryToday(); inativeAllMenus(); setTodayMenu(true); }}
+							>
+							Hoje
+						</Text>
 					</TouchableOpacity>
 					<TouchableOpacity>
-						<Text style={[ styles.day, { color: '#aaa' } ]} onPress={ () => searchCountryYesterday() } >Ontem</Text>
+						<Text style={[ styles.day, yesterdayMenu ? styles.ative : styles.inative ]} 
+							onPress={ () => { searchCountryYesterday(); inativeAllMenus(); setYesterdayMenu(true); }}
+							>
+							Ontem
+						</Text>
 					</TouchableOpacity>
 				</View>
 
