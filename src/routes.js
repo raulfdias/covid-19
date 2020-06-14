@@ -6,8 +6,8 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 
-import World from './pages/World';
-import Virus from './pages/Virus';
+import Home from './pages/Home';
+import Statistics from './pages/Statistics';
 
 const Tab = createBottomTabNavigator();
 
@@ -19,22 +19,22 @@ const Routes = () => {
 				  tabBarIcon: ({ focused, color, size }) => {
 				  	let iconName;
 
-				    if (route.name === 'World') {
-				      iconName = 'earth';
-				    } else if (route.name === 'Virus') {
-				      iconName = 'bacteria-outline';
+				    if (route.name === 'Home') {
+				      iconName = 'home';
+				    } else if (route.name === 'Statistics') {
+				      iconName = 'chart-bar';
 				    }
 
 				    return <MaterialCommunityIcons name={iconName} size={size} color={color} />;
 	  			},
 				})}
 				tabBarOptions={{
-				  activeTintColor: '#d63226',
+				  activeTintColor: '#473f97',
 				  inactiveTintColor: 'gray',
 				}}
       >
-        <Tab.Screen name="World" component={World} />
-        <Tab.Screen name="Virus" component={Virus} />
+        <Tab.Screen name="Home" component={Home} />
+        <Tab.Screen name="Statistics" component={Statistics} />
       </Tab.Navigator>
     </NavigationContainer>
 	);
