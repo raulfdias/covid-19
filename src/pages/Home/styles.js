@@ -23,7 +23,6 @@ const styles = StyleSheet.create({
 		color: '#fefefe',
 		fontSize: 22,
 		fontWeight: 'bold',
-		fontFamily: 'Arial',
 	},
 	selectCountry: {
 		width: 100,
@@ -40,7 +39,6 @@ const styles = StyleSheet.create({
 		color: '#ccc',
 		marginTop: 10,
 		fontSize: 14,
-		fontFamily: 'Arial',
 	},
 	contact: {
 		width: '100%',
@@ -61,7 +59,6 @@ const styles = StyleSheet.create({
 		marginLeft: 10,
 		color: '#fefefe',
 		fontSize: 16,
-		fontFamily: 'Arial',
 	},
 	prevention: {
 		width: '100%',
@@ -71,7 +68,6 @@ const styles = StyleSheet.create({
 		marginTop: 30,
 		marginLeft: 30,
 		fontSize: 20,
-		fontFamily: 'Arial',
 		fontWeight: 'bold',
 	},
 	preventionScroll: {
@@ -89,7 +85,6 @@ const styles = StyleSheet.create({
 		marginTop: 10,
 		textAlign: 'center',
 		fontSize: 15,
-		fontFamily: 'Arial',
 		fontWeight: 'bold',
 	}
 });
