@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { View, Text, Picker, TouchableOpacity, ScrollView, Image } from 'react-native';
 
-import { useNavigation } from '@react-navigation/native';
 import { FontAwesome, MaterialCommunityIcons } from '@expo/vector-icons';
 
 import styles from './styles';
@@ -32,9 +31,9 @@ const Home = () => {
 			      <Picker
 			      	style={ styles.selectCountry }
 			        selectedValue={selectedValue}
-			        onValueChange={(itemValue, itemIndex) => setSelectedValue(itemValue)}
+			        onValueChange={itemValue => setSelectedValue(itemValue)}
 			      >
-			        <Picker.Item label="BRA" value="BRA" />
+			        <Picker.Item label="BR" value="brazil" />
 						</Picker>
 					</View>
 
@@ -44,14 +43,14 @@ const Home = () => {
 					</View>
 
 					<View style={ styles.contact } >
-						<TouchableOpacity 
+						<TouchableOpacity
 							style={[ styles.button, { backgroundColor: '#ff4c58' } ]}
 							onPress={ () => {} }
 						>
 							<FontAwesome name={'phone'} size={22} color={'#fefefe'} />
 							<Text style={ styles.textBtn } >Ligue agora</Text>
 						</TouchableOpacity>
-						<TouchableOpacity 
+						<TouchableOpacity
 							style={[ styles.button, { backgroundColor: '#4c79ff' } ]}
 							onPress={ () => {} }
 						>
@@ -63,7 +62,7 @@ const Home = () => {
 
 				<View style={ styles.prevention } >
 					<Text style={ styles.preventionTitle } >Prevenção</Text>
-					<ScrollView style={ styles.preventionScroll } horizontal>
+					<ScrollView style={ styles.preventionScroll } horizontal showsHorizontalScrollIndicator={false}>
 						<TouchableOpacity style={ styles.preventionItem } onPress={ () => {} } >
 							<Image style={ styles.preventionImg } source={ require('../../assets/distance.png') } />
 							<Text style={ styles.preventionTxt } >Distanciamento</Text>
@@ -79,15 +78,15 @@ const Home = () => {
 					</ScrollView>
 				</View>
 				<TouchableOpacity style={{ width: '90%', height: 120, marginTop: 20, marginBottom: 30, }} >
-					<Image 
-						style={{ width: '100%', height: 120, }} 
+					<Image
+						style={{ width: '100%', height: 120, }}
 						source={ require('../../assets/make-test.png') }
 						resizeMode='contain'
 					/>
 				</TouchableOpacity>
 			</View>
 		</ScrollView>
-	); 
+	);
 };
 
 export default Home;

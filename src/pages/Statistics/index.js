@@ -7,82 +7,36 @@ import styles from './styles';
 
 const Statistics = () => {
 
-	const [ countryTotal, setCountryTotal ] = useState({Confirmed: 0, Deaths: 0, Recovered: 0, Active: 0});
-	const [ totalMenu, setTotalMenu ] = useState(true);
-	const [ todayMenu, setTodayMenu ] = useState(false);
-	const [ yesterdayMenu, setYesterdayMenu ] = useState(false);
-
-	const inativeAllMenus = () => { 
-		setTotalMenu(false);
-		setTodayMenu(false);
-		setYesterdayMenu(false);
-	};
+	const [ countryActiveNumbers, setCountryActiveNumbers ] = useState({Confirmed: 0, Deaths: 0, Recovered: 0, Active: 0});
+	const [ activeMenu, setActiveMenu ] = useState('total');
 
 	useEffect(() => {
-		searchCountryTotal();
-	}, []);
+    searchCountryNumbers();
+  }, []);
 
-	const searchCountryTotal = (country = 'brazil') => {
-		fetch(`https://api.covid19api.com/country/${country}?from=${getYesterday()}T00:00:00Z&to=${getToday()}T00:00:00Z`)
-			.then(res => res.json())
-			.then((res) => setCountryTotal(res[0]))
-	};
+  const searchCountryNumbers = (country = 'brazil', fromDay = getDayAgo(1), toDay = getDayAgo()) => {
+    fetch(`https://api.covid19api.com/country/${country}?from=${fromDay}T00:00:00Z&to=${toDay}T00:00:00Z`)
+      .then(response => response.json())
+			.then(response => response.length == 1
+        ? setCountryActiveNumbers(response[0])
+        : setCountryActiveNumbers(getObjectDifferenceDays(response))
+      );
+  };
 
-	const searchCountryToday = (country = 'brazil') => {
-		fetch(`https://api.covid19api.com/country/${country}?from=${getDayBeforeYesterday()}T00:00:00Z&to=${getToday()}T00:00:00Z`)
-			.then(res => res.json())
-			.then(res => 
-				setCountryTotal(
-					{
-						Confirmed: res[1].Confirmed - res[0].Confirmed,
-						Deaths: res[1].Deaths - res[0].Deaths,
-						Recovered: res[1].Recovered - res[0].Recovered,
-						Active: res[1].Active - res[0].Active,
-					}
-				)
-			);
-	};
+  const getObjectDifferenceDays = response => ({
+    Confirmed: response[1].Confirmed - response[0].Confirmed,
+    Deaths:    response[1].Deaths    - response[0].Deaths,
+    Recovered: response[1].Recovered - response[0].Recovered,
+    Active:    response[1].Active    - response[0].Active,
+  });
 
-	const searchCountryYesterday = (country = 'brazil') => {
-		fetch(`https://api.covid19api.com/country/${country}?from=${getTwoDaysBeforeYesterday()}T00:00:00Z&to=${getYesterday()}T00:00:00Z`)
-			.then(res => res.json())
-			.then(res => 
-				setCountryTotal(
-					{
-						Confirmed: res[1].Confirmed - res[0].Confirmed,
-						Deaths: res[1].Deaths - res[0].Deaths,
-						Recovered: res[1].Recovered - res[0].Recovered,
-						Active: res[1].Active - res[0].Active,
-					}
-				)
-			);
-	};
+  const getDayAgo = (dayAgo = 0) => {
+    const date = new Date();
+		const formatedDayAgo = date.getFullYear() + '-' + ('0' + (date.getMonth() + 1)) + '-' + (date.getDate() - dayAgo);
+    return formatedDayAgo;
+  };
 
-	const formatNumber = number => number.toLocaleString().replace(',', '.'); 
-
-	const getToday = () => {
-		const date = new Date();
-		const today = date.getFullYear() +'-'+ ('0' + (date.getMonth() + 1)) +'-'+ date.getDate();
-		return today;
-	};
-
-	const getYesterday = () => {
-		const date = new Date();
-		const yesterday = date.getFullYear() +'-'+ ('0' + (date.getMonth() + 1)) +'-'+ (date.getDate() - 1);
-		return yesterday;
-	};
-
-	const getDayBeforeYesterday = () => {
-		const date = new Date();
-		const dayBeforeYesterday = date.getFullYear() +'-'+ ('0' + (date.getMonth() + 1)) +'-'+ (date.getDate() - 2);
-		return dayBeforeYesterday;
-	};
-
-	const getTwoDaysBeforeYesterday = () => {
-		const date = new Date();
-		const twoDaysBeforeYesterday = date.getFullYear() +'-'+ ('0' + (date.getMonth() + 1)) +'-'+ (date.getDate() - 3);
-		return twoDaysBeforeYesterday;
-	};
+  const formatNumber = number => Number(number).toLocaleString().replace(',', '.');
 
 	return(
 		<ScrollView vertical style={ styles.container } >
@@ -111,23 +65,24 @@ const Statistics = () => {
 
 				<View style={ styles.days } >
 					<TouchableOpacity>
-						<Text style={[ styles.day, totalMenu ? styles.ative : styles.inative ]} 
-							onPress={ () => { searchCountryTotal(); inativeAllMenus(); setTotalMenu(true); }}
-							>
+            <Text
+              style={[ styles.day, activeMenu === 'total' ? styles.ative : styles.inative ]}
+							onPress={ () => { setActiveMenu('total'); searchCountryNumbers('brazil', getDayAgo(1), getDayAgo(0)) }}
+						>
 							Total
 						</Text>
 					</TouchableOpacity>
 					<TouchableOpacity>
-						<Text style={[ styles.day, todayMenu ? styles.ative : styles.inative ]} 
-							onPress={ () => { searchCountryToday(); inativeAllMenus(); setTodayMenu(true); }}
-							>
+						<Text style={[ styles.day, activeMenu === 'hoje' ? styles.ative : styles.inative ]}
+							onPress={ () => { setActiveMenu('hoje'); searchCountryNumbers('brazil', getDayAgo(2), getDayAgo(0)) }}
+						>
 							Hoje
 						</Text>
 					</TouchableOpacity>
 					<TouchableOpacity>
-						<Text style={[ styles.day, yesterdayMenu ? styles.ative : styles.inative ]} 
-							onPress={ () => { searchCountryYesterday(); inativeAllMenus(); setYesterdayMenu(true); }}
-							>
+						<Text style={[ styles.day, activeMenu === 'ontem' ? styles.ative : styles.inative ]}
+							onPress={ () => { setActiveMenu('ontem'); searchCountryNumbers('brazil', getDayAgo(3), getDayAgo(0)) }}
+						>
 							Ontem
 						</Text>
 					</TouchableOpacity>
@@ -137,27 +92,27 @@ const Statistics = () => {
 					<View style={ styles.squareLine } >
 						<TouchableOpacity style={[ styles.square, { backgroundColor: '#ffb259' } ]} >
 							<Text style={ styles.label } >Infectados</Text>
-							<Text style={ styles.number } >{ formatNumber(countryTotal.Confirmed) }</Text>
+							<Text style={ styles.number } >{ formatNumber(countryActiveNumbers.Confirmed) }</Text>
 						</TouchableOpacity>
 						<TouchableOpacity style={[ styles.square, { backgroundColor: '#ff5959' } ]} >
 							<Text style={ styles.label } >Mortes</Text>
-							<Text style={ styles.number } >{ formatNumber(countryTotal.Deaths) }</Text>
+							<Text style={ styles.number } >{ countryActiveNumbers.Deaths }</Text>
 						</TouchableOpacity>
 					</View>
 					<View style={ styles.squareLine } >
 						<TouchableOpacity style={[ styles.square, { backgroundColor: '#4cd97b' } ]} >
 							<Text style={ styles.label } >Recuperados</Text>
-							<Text style={ styles.number } >{ formatNumber(countryTotal.Recovered) }</Text>
+							<Text style={ styles.number } >{ countryActiveNumbers.Recovered }</Text>
 						</TouchableOpacity>
 						<TouchableOpacity style={[ styles.square, { backgroundColor: '#4cb5ff' } ]} >
 							<Text style={ styles.label } >Ativos</Text>
-							<Text style={ styles.number } >{ formatNumber(countryTotal.Active) }</Text>
+							<Text style={ styles.number } >{ countryActiveNumbers.Active }</Text>
 						</TouchableOpacity>
 					</View>
 				</View>
 			</View>
 		</ScrollView>
-	); 
+	);
 };
 
 export default Statistics;
